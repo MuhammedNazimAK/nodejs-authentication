@@ -4,6 +4,7 @@ const adminController = require("../controllers/adminController");
 const isAuthenticated = require('../helper/authMiddleware');
 const { upload } = require("../config/multer");
 
+
 router.get('/', isAuthenticated, adminController.adminHome);
 router.get("/login", adminController.loadLogin);
 router.post('/login', adminController.handleLogin);
