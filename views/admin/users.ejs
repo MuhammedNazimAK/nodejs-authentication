@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to right, #ffecd2, #fcb69f);
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        max-width: 800px;
+        width: 100%;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      input[type="text"] {
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 30px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      input[type="text"]:focus {
+        border-color: #ff7e5f;
+        outline: none;
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #fcb69f;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #ff7f50;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+        text-transform: uppercase;
+        font-size: 14px;
+      }
+
+      td {
+        font-size: 14px;
+      }
+
+      a {
+        color: #333;
+        text-decoration: none;
+        margin-right: 10px;
+      }
+
+      a:hover {
+        color: #ff7e5f;
+      }
+
+      form.inline-form {
+        display: inline;
+      }
+
+      .user-image {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-right: 10px;
+      }
+
+      .edit-btn,
+      .delete-btn {
+        padding: 10px 20px;
+        background-color: #fcb69f;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .edit-btn:hover,
+      .delete-btn:hover {
+        background-color: #ff7f50;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Users</h1>
+      <form action="/admin/users" method="GET">
+        <input type="text" name="search" placeholder="Search users" />
+        <button type="submit">Search</button>
+      </form>
+      <table>
+        <tr>
+          <th>Image</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+        <% users.forEach(user => { %>
+        <tr>
+          <td>
+            <img
+              src="/userImages/<%= user.image %>"
+              alt="<%= user.image %>"
+              class="user-image"
+            />
+          </td>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if (user.isBlocked) { %>
+            <form
+              action="/admin/users/unblock/<%= user._id %>"
+              method="POST"
+              class="inline-form"
+            >
+              <button type="submit" class="edit-btn">Unblock</button>
+            </form>
+            <% } else { %>
+            <form
+              action="/admin/users/block/<%= user._id %>"
+              method="POST"
+              class="inline-form"
+            >
+              <button type="submit" class="edit-btn">Block</button>
+            </form>
+            <% } %>
+            <form
+              action="/admin/users/delete/<%= user._id %>"
+              method="POST"
+              class="inline-form"
+            >
+              <button type="submit" class="delete-btn">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </table>
+    </div>
+  </body>
+</html>
