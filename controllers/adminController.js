@@ -14,7 +14,7 @@ const adminHome = (req, res) => {
   } catch (error) {
     console.log(error.message);
   }
-};
+}; 
 
 const loadLogin = (req, res) => {
   try {

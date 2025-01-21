@@ -46,7 +46,7 @@ const validateRegistration = (data) => {
   const mobileRegex = /^\d{10}$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
 
-  if (!nameRegex.test(data.name)) {
+  if (!nameRegex.test(data.name.trim())) {
     errors.push({
       context: { key: "name" },
       message: "Name is invalid. Only letters and spaces are allowed.",
